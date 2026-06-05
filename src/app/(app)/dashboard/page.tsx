@@ -5,6 +5,7 @@ import { FadeIn } from "@/components/ui/fade-in";
 import { StaggerContainer, StaggerItem } from "@/components/ui/stagger";
 import { ActivityTicker, type ActivityEvent } from "@/components/activity-ticker";
 import { ArrowDownToLine, ArrowUpFromLine, TrendingUp, Wallet } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const statusColors: Record<string, string> = {
@@ -177,7 +178,14 @@ export default async function DashboardPage() {
             aria-hidden
             className="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-amber-400/10 blur-3xl"
           />
-          <div className="relative">
+          {/* brand mark — top-right corner, credit-card style */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute right-5 top-5 select-none"
+          >
+            <Image src="/logo.png" alt="" width={124} height={124} draggable={false} className="rounded-2xl" />
+          </div>
+          <div className="relative z-10">
             <div className="flex items-center gap-2 text-sm text-slate-400">
               <Wallet className="h-4 w-4" />
               Total Balance
