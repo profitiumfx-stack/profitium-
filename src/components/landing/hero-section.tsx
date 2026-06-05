@@ -62,7 +62,7 @@ export function HeroSection() {
           transition={{ delay: 0.28, duration: 0.65, ease }}
           className="mt-5 text-5xl font-bold tracking-tight text-white sm:text-7xl"
         >
-          Grow Your Crypto,{" "}
+          Grow Your Investment,{" "}
           <span className="text-amber-400">Daily</span>
         </motion.h1>
 
@@ -73,7 +73,7 @@ export function HeroSection() {
           transition={{ delay: 0.45, duration: 0.6, ease }}
           className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-300"
         >
-          Earn consistent daily returns on your crypto investment.
+          Earn consistent daily returns on your investment.
           Choose your plan, sit back, and watch your balance grow —
           with withdrawals available whenever you need them.
         </motion.p>
