@@ -40,7 +40,7 @@ function fmt(price: number): string {
   }).format(price);
 }
 
-export function CryptoTicker() {
+export function CryptoTicker({ variant = "dark" }: { variant?: "dark" | "light" }) {
   const [prices, setPrices] = useState<RawPrices>({});
   const [paused, setPaused] = useState(false);
 
@@ -52,12 +52,11 @@ export function CryptoTicker() {
         const res = await fetch(API, { cache: "no-store" });
         if (!res.ok || cancelled) return;
         const raw: unknown = await res.json();
-        // Accept only a plain object; silently ignore anything else
         if (raw && typeof raw === "object" && !Array.isArray(raw)) {
           if (!cancelled) setPrices((prev) => ({ ...prev, ...(raw as RawPrices) }));
         }
       } catch {
-        // keep last good prices on any network / parse error
+        // keep previous prices on network error
       }
     }
 
@@ -69,8 +68,7 @@ export function CryptoTicker() {
     };
   }, []);
 
-  // Only include coins where BOTH usd and usd_24h_change are valid finite numbers.
-  // Any coin missing from the response, or returning undefined/null for a field, is skipped.
+  // Only include coins where BOTH fields are valid finite numbers
   const entries: TickerEntry[] = COINS.flatMap((coin) => {
     const d = prices[coin.id];
     if (!d) return [];
@@ -81,6 +79,17 @@ export function CryptoTicker() {
   });
 
   if (entries.length === 0) return null;
+
+  const isDark = variant === "dark";
+
+  const wrapperCls = isDark
+    ? "relative flex h-10 items-center overflow-hidden border-b border-slate-800/60 bg-slate-950"
+    : "relative flex h-10 items-center overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm";
+
+  const fadeCls = isDark ? "from-slate-950" : "from-white";
+  const symbolCls = isDark ? "text-slate-200" : "text-slate-800";
+  const priceCls  = isDark ? "text-slate-400" : "text-slate-600";
+  const dotCls    = isDark ? "text-slate-700" : "text-slate-300";
 
   return (
     <>
@@ -93,19 +102,19 @@ export function CryptoTicker() {
 
       <div
         aria-label="Live cryptocurrency prices"
-        className="relative flex h-10 items-center overflow-hidden border-b border-slate-800/60 bg-slate-950"
+        className={wrapperCls}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
         {/* left edge fade */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-14 bg-gradient-to-r from-slate-950 to-transparent"
+          className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-14 bg-gradient-to-r ${fadeCls} to-transparent`}
         />
         {/* right edge fade */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-14 bg-gradient-to-l from-slate-950 to-transparent"
+          className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-14 bg-gradient-to-l ${fadeCls} to-transparent`}
         />
 
         {/* scrolling track — two copies for seamless -50% loop */}
@@ -124,15 +133,15 @@ export function CryptoTicker() {
                   key={`${prefix}-${coin.id}`}
                   className="flex shrink-0 items-center gap-2 px-5"
                 >
-                  <span className="text-[11px] font-bold tracking-wide text-slate-200">
+                  <span className={`text-[11px] font-bold tracking-wide ${symbolCls}`}>
                     {coin.symbol}
                   </span>
-                  <span className="text-[11px] tabular-nums text-slate-400">
+                  <span className={`text-[11px] tabular-nums ${priceCls}`}>
                     {fmt(coin.usd)}
                   </span>
                   <span
                     className={`flex items-center gap-0.5 text-[10px] font-medium tabular-nums ${
-                      positive ? "text-emerald-400" : "text-rose-400"
+                      positive ? "text-emerald-500" : "text-rose-500"
                     }`}
                   >
                     {positive ? (
@@ -143,7 +152,7 @@ export function CryptoTicker() {
                     {positive ? "+" : ""}
                     {coin.change.toFixed(2)}%
                   </span>
-                  <span aria-hidden className="select-none text-[11px] text-slate-700">
+                  <span aria-hidden className={`select-none text-[11px] ${dotCls}`}>
                     ·
                   </span>
                 </div>

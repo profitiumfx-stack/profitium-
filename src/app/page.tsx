@@ -1,6 +1,5 @@
 import { CryptoTicker } from "@/components/crypto-ticker";
 import { HeroSection } from "@/components/landing/hero-section";
-import { LiveNotification } from "@/components/live-notification";
 import { FadeInView } from "@/components/ui/fade-in";
 import { StaggerViewContainer, StaggerItem } from "@/components/ui/stagger";
 import { Shield, TrendingUp, Globe, Users } from "lucide-react";
@@ -58,9 +57,6 @@ const steps = [
 export default function LandingPage() {
   return (
     <main className="bg-slate-950 text-white">
-      {/* Floating social-proof notification — fixed, appears every 10 s */}
-      <LiveNotification />
-
       {/* Live crypto price ticker */}
       <CryptoTicker />
 

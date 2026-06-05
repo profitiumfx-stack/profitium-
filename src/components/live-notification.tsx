@@ -14,12 +14,36 @@ const NAMES = [
 ];
 
 const COUNTRIES = [
-  "USA", "Germany", "United Kingdom", "Canada", "Australia",
-  "France", "Nigeria", "UAE", "South Africa", "Brazil",
-  "Japan", "India", "Singapore", "Netherlands", "Ghana",
-  "Mexico", "Sweden", "Kenya", "Italy", "Philippines",
-  "Spain", "Pakistan", "Malaysia", "Poland", "Argentina",
-  "Turkey", "Egypt", "Switzerland", "New Zealand", "Portugal",
+  { name: "USA",            flag: "🇺🇸" },
+  { name: "Germany",        flag: "🇩🇪" },
+  { name: "United Kingdom", flag: "🇬🇧" },
+  { name: "Canada",         flag: "🇨🇦" },
+  { name: "Australia",      flag: "🇦🇺" },
+  { name: "France",         flag: "🇫🇷" },
+  { name: "Nigeria",        flag: "🇳🇬" },
+  { name: "UAE",            flag: "🇦🇪" },
+  { name: "South Africa",   flag: "🇿🇦" },
+  { name: "Brazil",         flag: "🇧🇷" },
+  { name: "Japan",          flag: "🇯🇵" },
+  { name: "India",          flag: "🇮🇳" },
+  { name: "Singapore",      flag: "🇸🇬" },
+  { name: "Netherlands",    flag: "🇳🇱" },
+  { name: "Ghana",          flag: "🇬🇭" },
+  { name: "Mexico",         flag: "🇲🇽" },
+  { name: "Sweden",         flag: "🇸🇪" },
+  { name: "Kenya",          flag: "🇰🇪" },
+  { name: "Italy",          flag: "🇮🇹" },
+  { name: "Philippines",    flag: "🇵🇭" },
+  { name: "Spain",          flag: "🇪🇸" },
+  { name: "Pakistan",       flag: "🇵🇰" },
+  { name: "Malaysia",       flag: "🇲🇾" },
+  { name: "Poland",         flag: "🇵🇱" },
+  { name: "Argentina",      flag: "🇦🇷" },
+  { name: "Turkey",         flag: "🇹🇷" },
+  { name: "Egypt",          flag: "🇪🇬" },
+  { name: "Switzerland",    flag: "🇨🇭" },
+  { name: "New Zealand",    flag: "🇳🇿" },
+  { name: "Portugal",       flag: "🇵🇹" },
 ];
 
 const AMOUNTS = [
@@ -33,6 +57,7 @@ type Toast = {
   key: number;
   name: string;
   country: string;
+  flag: string;
   action: Action;
   amount: number;
 };
@@ -59,25 +84,24 @@ export function LiveNotification() {
 
   useEffect(() => {
     function show() {
-      // Clear any pending dismiss so the new toast gets its own timer
       if (dismissRef.current) clearTimeout(dismissRef.current);
 
+      const country = pick(COUNTRIES);
       const action: Action = Math.random() > 0.38 ? "deposited" : "withdrew";
+
       setToast({
         key: ++keyRef.current,
         name: pick(NAMES),
-        country: pick(COUNTRIES),
+        country: country.name,
+        flag: country.flag,
         action,
         amount: pick(AMOUNTS),
       });
 
-      // Auto-dismiss after 5.5 s
       dismissRef.current = setTimeout(() => setToast(null), 5500);
     }
 
-    // First pop at 4 s so the page has settled
     const first = setTimeout(show, 4000);
-    // Then every 10 s
     const loop = setInterval(show, 10_000);
 
     return () => {
@@ -97,9 +121,9 @@ export function LiveNotification() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.35, ease }}
-            className="flex w-[260px] items-center gap-3 rounded-2xl border border-slate-100 bg-white px-4 py-3 shadow-2xl shadow-slate-900/15"
+            className="flex w-[272px] items-center gap-3 rounded-2xl border border-slate-100 bg-white px-4 py-3 shadow-2xl shadow-slate-900/15"
           >
-            {/* icon */}
+            {/* action icon */}
             <div
               className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${
                 toast.action === "deposited"
@@ -115,15 +139,13 @@ export function LiveNotification() {
             </div>
 
             {/* text */}
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
               <p className="truncate text-[12px] font-semibold text-slate-800">
-                {toast.name}{" "}
-                <span className="font-normal text-slate-500">
-                  from {toast.country}
-                </span>
+                {toast.name}
               </p>
               <p className="mt-0.5 text-[11px] text-slate-500">
-                just {toast.action}{" "}
+                <span className="mr-1 text-[13px]">{toast.flag}</span>
+                {toast.country} · just {toast.action}{" "}
                 <span
                   className={`font-semibold ${
                     toast.action === "deposited"
@@ -137,7 +159,7 @@ export function LiveNotification() {
             </div>
 
             {/* live pulse dot */}
-            <span className="relative ml-auto flex h-2 w-2 shrink-0">
+            <span className="relative ml-1 flex h-2 w-2 shrink-0">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-60" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-400" />
             </span>

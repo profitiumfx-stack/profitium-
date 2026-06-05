@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
+import { LiveNotification } from "@/components/live-notification";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -20,6 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.variable}>
         {children}
+        <LiveNotification />
         <Toaster richColors position="top-center" />
       </body>
     </html>

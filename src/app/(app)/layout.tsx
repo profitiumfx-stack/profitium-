@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Sidebar } from "@/components/sidebar";
 import { Topbar } from "@/components/topbar";
+import { CryptoTicker } from "@/components/crypto-ticker";
 
 export default async function AppLayout({
   children,
@@ -32,6 +33,7 @@ export default async function AppLayout({
       </aside>
       <div className="flex flex-1 flex-col overflow-hidden">
         <Topbar userName={userName} userEmail={userEmail} avatarUrl={avatarUrl} />
+        <CryptoTicker variant="light" />
         <main className="flex-1 overflow-y-auto p-4 lg:p-8">{children}</main>
       </div>
     </div>
