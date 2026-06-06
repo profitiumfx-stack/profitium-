@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { LiveNotification } from "@/components/live-notification";
+import { TawkChat } from "@/components/tawk-chat";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body className={inter.variable}>
         {children}
         <LiveNotification />
+        <TawkChat />
         <Toaster richColors position="top-center" />
       </body>
     </html>
