@@ -160,3 +160,20 @@ body {
 .gt-wrap .goog-te-gadget .goog-te-combo:focus {
   border-color: rgb(251 191 36);
 }
+/* Force compact dropdown, kill the full-width overlay */
+.goog-te-menu-frame {
+  display: none !important;
+}
+
+.gt-wrap .goog-te-combo {
+  min-width: 150px;
+  max-width: 220px;
+  white-space: normal;
+  text-overflow: clip;
+}
+
+.gt-wrap .goog-te-combo option {
+  background-color: rgb(15 23 42);
+  color: rgb(226 232 240);
+  padding: 4px 8px;
+}

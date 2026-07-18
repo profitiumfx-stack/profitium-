@@ -25,7 +25,7 @@ export function LanguageSwitcher() {
             pageLanguage: "en",
             autoDisplay: false,
             layout:
-              window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+              window.google.translate.TranslateElement.InlineLayout.HORIZONTAL,
           },
           "google_translate_element"
         );
