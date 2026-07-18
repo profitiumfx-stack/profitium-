@@ -1,5 +1,6 @@
 "use client";
 
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
@@ -54,8 +55,9 @@ export function Topbar({
           <span className="text-sm font-semibold text-slate-800">{pageTitle}</span>
         </div>
 
-        {/* right: user avatar */}
-        <div className="flex items-center gap-2">
+        {/* right: language switcher + user avatar */}
+        <div className="flex items-center gap-3">
+          <LanguageSwitcher />
           {avatarUrl ? (
             <div className="relative h-8 w-8 overflow-hidden rounded-full ring-2 ring-amber-400/20">
               <Image src={avatarUrl} alt="" fill className="object-cover" />

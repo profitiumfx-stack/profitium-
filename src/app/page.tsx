@@ -1,4 +1,5 @@
 import { CryptoTicker } from "@/components/crypto-ticker";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { HeroSection } from "@/components/landing/hero-section";
 import { FadeInView } from "@/components/ui/fade-in";
 import { StaggerViewContainer, StaggerItem } from "@/components/ui/stagger";
@@ -174,9 +175,12 @@ export default function LandingPage() {
               Dashboard
             </Link>
           </nav>
-          <p className="text-xs text-slate-600">
-            © {new Date().getFullYear()} Profitium FX. All rights reserved.
-          </p>
+          <div className="flex items-center gap-4">
+            <LanguageSwitcher />
+            <p className="text-xs text-slate-600">
+              © {new Date().getFullYear()} Profitium FX. All rights reserved.
+            </p>
+          </div>
         </div>
       </footer>
     </main>

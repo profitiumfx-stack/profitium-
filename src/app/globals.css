@@ -130,3 +130,33 @@
     @apply font-sans;
   }
 }
+
+/* Google Translate widget cleanup */
+.goog-te-banner-frame,
+.skiptranslate iframe {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+.gt-wrap .goog-te-gadget {
+  color: transparent !important;
+  font-size: 0 !important;
+}
+
+.gt-wrap .goog-te-gadget .goog-te-combo {
+  background-color: rgb(15 23 42);
+  color: rgb(251 191 36);
+  border: 1px solid rgb(251 191 36 / 0.4);
+  border-radius: 0.5rem;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.8rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.gt-wrap .goog-te-gadget .goog-te-combo:focus {
+  border-color: rgb(251 191 36);
+}
