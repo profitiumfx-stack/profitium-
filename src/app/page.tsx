@@ -58,8 +58,13 @@ const steps = [
 export default function LandingPage() {
   return (
     <main className="bg-slate-950 text-white">
-      {/* Live crypto price ticker */}
-      <CryptoTicker />
+      {/* Top bar: ticker + language */}
+      <div className="relative">
+        <CryptoTicker />
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 z-20">
+          <LanguageSwitcher />
+        </div>
+      </div>
 
       {/* Hero */}
       <HeroSection />

@@ -21,10 +21,10 @@ export function LanguageSwitcher() {
     window.googleTranslateElementInit = () => {
       if (window.google?.translate?.TranslateElement) {
         new window.google.translate.TranslateElement(
-         {
+          {
             pageLanguage: "en",
             autoDisplay: false,
-            includedLanguages: "en,fr,es,pt,ar,zh-CN,hi,ru,de,it,tr,id,sw,yo,ig,ha",
+            includedLanguages: "en,fr,es,pt,ar,zh-CN,hi,ru,de,it,tr,id,sw",
             layout:
               window.google.translate.TranslateElement.InlineLayout.HORIZONTAL,
           },
